@@ -2,7 +2,7 @@
 
 This scroll spy uses render props to allow the maximum level of flexibility.
 
-[Live Demo](http://scroll-spy.digital-loigc.net)
+[Live Demo](http://scroll-spy.digital-logic.net/)
 
 ### Available Props
     items: Array of id strings,
