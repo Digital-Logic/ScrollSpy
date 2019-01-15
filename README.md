@@ -2,9 +2,9 @@
 
 This scroll spy uses render props to allow the maximum level of flexibility.
 
-[Live Demo](http://scroll-spy.ditital-loigc.net)
+[Live Demo](http://scroll-spy.digital-loigc.net)
 
-### Avalible Props
+### Available Props
     items: Array of id strings,
     isActive: (optional) function to determine which anchor is in view
     scrollRate: (optional) Number of milliseconds to throttle scroll events
