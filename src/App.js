@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import applyTheme from './theme';
+import { Switch, Route } from 'react-router-dom';
+import { Routes, Home } from './Routes';
+import Menu from './Components/Menu';
+import { withStyles } from '@material-ui/core/styles';
+import compose from 'recompose/compose';
+import PropTypes from 'prop-types';
+
+const styles = theme => ({
+    menuBuffer: {
+        ...theme.mixins.toolbar
+    }
+});
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <div>
+                <Menu />
+                {/* <div className={classes.menuBuffer} /> */}
+                <Switch>
+                    <Route path={Routes.HOME} component={Home} />
+                </Switch>
+            </div>
+        );
+    }
+
+    static get propTypes() {
+        return {
+            classes: PropTypes.object.isRequired
+        };
+    }
 }
 
-export default App;
+export default compose (
+    applyTheme,
+    withStyles(styles)
+)(App);
