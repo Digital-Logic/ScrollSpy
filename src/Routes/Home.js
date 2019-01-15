@@ -41,16 +41,16 @@ const styles = theme => ({
         }
     },
     page1: {
-        backgroundColor: '#503c6c'
+        backgroundColor: '#43628d'
     },
     page2: {
-        backgroundColor: '#2e2c49'
+        backgroundColor: '#377c7f'
     },
     page3: {
-        backgroundColor: '#134566'
+        backgroundColor: '#2f8b63'
     },
     page4: {
-        backgroundColor: '#1d433a'
+        backgroundColor: '#8b7b1b'
     }
 });
 

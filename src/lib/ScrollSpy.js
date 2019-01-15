@@ -72,7 +72,7 @@ class ScrollSpy extends PureComponent {
                 positions: newPositions
             });
         }
-    }, 500);
+    }, this.props.resizeRate);
 
     render() {
         return this.props.children(this.state.active);
@@ -90,7 +90,7 @@ class ScrollSpy extends PureComponent {
         return {
             isActive: findActivePage,
             items: [],
-            scrollRate: 200,
+            scrollRate: 120,
             resizeRate: 500
         };
     }

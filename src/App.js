@@ -8,9 +8,7 @@ import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
-    menuBuffer: {
-        ...theme.mixins.toolbar
-    }
+
 });
 
 class App extends Component {
@@ -21,7 +19,6 @@ class App extends Component {
         return (
             <div>
                 <Menu />
-                {/* <div className={classes.menuBuffer} /> */}
                 <Switch>
                     <Route path={Routes.HOME} component={Home} />
                 </Switch>
