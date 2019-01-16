@@ -50,7 +50,7 @@ const styles = theme => ({
         backgroundColor: '#2f8b63'
     },
     page4: {
-        backgroundColor: '#8b7b1b'
+        backgroundColor: '#a05e33'
     }
 });
 

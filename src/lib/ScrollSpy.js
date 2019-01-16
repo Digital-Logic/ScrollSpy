@@ -6,16 +6,14 @@ import { debounce, throttle } from './util';
 class ScrollSpy extends PureComponent {
 
     state = {
-        positions: [],
-        active: '',
-        elements: []
-    }
+        active: ''
+    };
+
+    positions = [];
+    elements = [];
+    elementIds = [];
 
     componentDidMount() {
-        this.setState({
-            elements: this.props.items.map( id => document.getElementById(id))
-        });
-
         window.addEventListener('resize', this.onResize);
         window.addEventListener('scroll', this.onScroll);
 
@@ -31,14 +29,17 @@ class ScrollSpy extends PureComponent {
         window.removeEventListener('scroll', this.onScroll);
         this.onResize.cancel();
         this.onScroll.cancel();
+
+        this.onResize = () => {};
+        this.onScroll = () => {};
     }
 
     onScroll = throttle(() => {
-        const { positions, active } = this.state;
+        const { active } = this.state;
 
-        const newActive =  positions.reduce( (newActive, curPos, index) => {
+        const newActive =  this.positions.reduce( (newActive, curPos, index) => {
             if (this.props.isActive(curPos.top, curPos.bottom))
-                return this.state.elements[index].id;
+                return this.elements[index].id;
             return newActive;
 
         }, '');
@@ -51,9 +52,9 @@ class ScrollSpy extends PureComponent {
     }, this.props.scrollRate);
 
     onResize = debounce(() => {
-        const { positions } = this.state;
+        this.reMap();
 
-        const newPositions = this.state.elements.map( el => el.getBoundingClientRect())
+        const newPositions = this.elements.map( el => el.getBoundingClientRect())
             .map( ({top, bottom}, index) => ({
                 top: top + window.scrollY,
                 bottom: bottom + window.scrollY
@@ -61,18 +62,28 @@ class ScrollSpy extends PureComponent {
 
         if (Object.entries(newPositions).reduce( (isDif, [key, value]) => {
 
-            if ( positions[key] === undefined ||
-                    value.bottom !== positions[key].bottom ||
-                    value.top !== positions[key].top)
+            if ( this.positions[key] === undefined ||
+                    value.bottom !== this.positions[key].bottom ||
+                    value.top !== this.positions[key].top)
                 return true;
             return isDif;
         }, false)) {
             this.onScroll();
-            this.setState({
-                positions: newPositions
-            });
+            this.positions = newPositions;
         }
     }, this.props.resizeRate);
+
+    reMap() {
+        if ( this.props.items.reduce( (remap, curId, indexOf) => {
+            if (curId !== this.elementIds[indexOf])
+                return true; // remap
+            return remap;
+        }, false))
+        {
+            this.elementIds = this.props.items;
+            this.elements = this.props.items.map( id => document.getElementById(id));
+        }
+    }
 
     render() {
         return this.props.children(this.state.active);
