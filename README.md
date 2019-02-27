@@ -1,6 +1,6 @@
 ## React Scroll Spy
 
-This scroll spy uses render props to allow the maximum level of flexibility.
+React component that lets you modify components based on the current scroll position.
 
 [Live Demo](http://scroll-spy.digital-logic.net/)
 
