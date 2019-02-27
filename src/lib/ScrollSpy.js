@@ -56,8 +56,8 @@ class ScrollSpy extends PureComponent {
 
         const newPositions = this.elements.map( el => el.getBoundingClientRect())
             .map( ({top, bottom}, index) => ({
-                top: top + window.scrollY,
-                bottom: bottom + window.scrollY
+                top: top + window.pageYOffset,
+                bottom: bottom + window.pageYOffset
             }));
 
         if (Object.entries(newPositions).reduce( (isDif, [key, value]) => {
