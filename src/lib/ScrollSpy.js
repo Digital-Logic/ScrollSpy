@@ -81,7 +81,14 @@ class ScrollSpy extends PureComponent {
         }, false))
         {
             this.elementIds = this.props.items;
-            this.elements = this.props.items.map( id => document.getElementById(id));
+            this.elements = this.props.items.reduce( (acc, curId, index) => {
+                const domElement = document.getElementById(curId);
+                if (domElement !== null)
+                    acc.push(domElement);
+                else console.log(`ScrollSpy: Unable to find element by id: ${curId}.`);
+
+                return acc;
+            },[]);
         }
     }
 
